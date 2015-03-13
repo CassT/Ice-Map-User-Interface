@@ -1,0 +1,22 @@
+Prefixes:
+ dc -
+ egg - http://purl.org/nsidc/jcomm/egg
+ esip - http://www.itsc.uah.edu/esip_data#
+ geo -  http://www.opengis.net/ont/OGC-GeoSPARQL/1.0/
+ gml - http://www.opengis.net/def/dataType/OGC-GML/3.0/
+ prov - http://www.w3.org/ns/prov#
+ rdfs - http://www.w3.org/2000/01/rdf-schema#
+ sigrid - http://purl.org/nsidc/jcomm/sigrid#
+ sio - http://semanticscience.org/resource/
+ ssiii - http://purl.org/nsidc/ssiii/seaice#
+
+The rdf file contains data of the form:
+<http://purl.org/ssiii/layers/cis_SGRDREC_20060508_pl_a/zone/39> a egg:Zone ;
+    egg:hasComponent <http://purl.org/ssiii/layers/cis_SGRDREC_20060508_pl_a/zone/39/component/A>,
+        <http://purl.org/ssiii/layers/cis_SGRDREC_20060508_pl_a/zone/39/component/B>,
+        <http://purl.org/ssiii/layers/cis_SGRDREC_20060508_pl_a/zone/39/component/C>,
+        <http://purl.org/ssiii/layers/cis_SGRDREC_20060508_pl_a/zone/39/component/predominant>,
+        <http://purl.org/ssiii/layers/cis_SGRDREC_20060508_pl_a/zone/39/component/secondary> ;
+    sigrid:hasSigrid3ConcentrationCode "92" ;
+    sio:is-member-of <http://purl.org/ssiii/layers/cis_SGRDREC_20060508_pl_a> ;
+    geo:hasGeometry <http://purl.org/ssiii/layers/cis_SGRDREC_20060508_pl_a/zone/39/geometry> .

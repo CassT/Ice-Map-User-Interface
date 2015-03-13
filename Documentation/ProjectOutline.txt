@@ -1,0 +1,21 @@
+The overall goal of this project is to create a user-interface that allows researchers to query ice map data stored in a Virtuoso database.
+The Current outline of this project is as follows:
+
+1. Loading data into the Virtuoso database
+	a. Convert single tarball ice data into RDF format
+	   #Completed using the sigrid3rdf.py script - ShptoRdf
+	b. Find a way to store this rdf data in the Virtuoso database - also effectively query the data using the web interface, or better yet the command line.
+	c. Automate the above steps for all CIS data
+
+2. Make simple SPARQL queries for ice data, test functionality.
+	a. Test various queries using the browser interface and command line (SSH)
+	b. keep testing...
+
+3. Create a user-interface
+	a. Create mockup of UI following guidelines detailed at Programmer's Wiki
+	b. Translate UI searches into SPARQL queries - script/develop web application
+	c. Make sure data is returned in format that makes sense
+
+4. Extend application functionality as time permits
+	a. Look into translating data from other data sources - will require in-depth knowledge of current ontology
+	b. Program multiple return-formats for data

@@ -1,0 +1,46 @@
+prefix dc: <http://purl.org/dc/terms/> 
+prefix egg: <http://purl.org/nsidc/jcomm/egg#> 
+prefix esip: <http://www.itsc.uah.edu/esip_data#> 
+prefix geo: <http://www.opengis.net/ont/OGC-GeoSPARQL/1.0/> 
+prefix gml: <http://www.opengis.net/def/dataType/OGC-GML/3.0/> 
+prefix prov: <http://www.w3.org/ns/prov#> 
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+prefix sigrid: <http://purl.org/nsidc/jcomm/sigrid#> 
+prefix sio: <http://semanticscience.org/resource/>  
+prefix ssiii: <http://purl.org/nsidc/ssiii/seaice#> 
+
+SELECT ?Shapefile ?Region ?Zone ?TotalConcentration ?PredominantSOD ?SecondarySOD ?CompSOD ?CompConc ?CompForm
+
+WHERE {
+# Select the shapefile, the first portion of the query finds each egg code for each zone
+?Shapefile a esip:DataGranule .
+# Select its region
+?Shapefile sio:is-model-of ?Region .
+# Identify zones in Shapefile
+?map sio:is-modeled-by ?Shapefile .
+?Zone sio:is-member-of ?map .
+# Find total concentration code for zone
+?Zone sigrid:hasSigrid3ConcentrationCode ?TotalConcentration .
+# Predominant stage of development from predominant component
+?Zone egg:hasComponent ?Predominant .
+?Predominant a egg:PredominantForm .
+?Predominant sigrid:hasSigrid3DevelopmentStageCode ?PredominantSOD .
+# Secondary stage of development from secondary component
+?Zone egg:hasComponent ?Secondary .
+?Secondary a egg:SecondaryForm .
+?Secondary sigrid:hasSigrid3DevelopmentStageCode ?SecondarySOD .
+# Other components
+?Zone egg:hasComponent ?Component .
+?Component a ssiii:ZoneComponent .
+?Component sigrid:hasSigrid3DevelopmentStageCode ?CompSOD .
+?Component sigrid:hasSigrid3ConcentrationCode ?CompConc .
+?Component sigrid:hasSigrid3IceFormCode ?CompForm .
+# Add filters based on user selections
+FILTER regex(?Region, "[regionname]")
+FILTER regex(?TotalConcentration, "[ConcCode]")
+FILTER regex(?PredominantSOD, "[PSODCode]")
+FILTER regex(?SecondarySOD, "[SSODCode]")
+FILTER regex(?CompSOD, "[CompSODCode]")
+FILTER regex(?CompConc, "[code]")
+FILTER regex(?CompForm, "[code]")
+} GROUP BY ?Zone
